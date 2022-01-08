@@ -34,3 +34,17 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 5
           timeoutSeconds: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: custom-web-utils
+  namespace: onboarding
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 9090
+    targetPort: 8080
+  selector:
+    app: custom-web-utils
