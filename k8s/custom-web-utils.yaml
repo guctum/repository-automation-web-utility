@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-web-utils
+  namespace: onboarding
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: custom-web-utils
+  template:
+    metadata:
+      labels:
+        app: custom-web-utils
+    spec:
+      containers:
+      - name: support-kubernetes-onboarding
+        image: guctum/dt-k8s-onboarding-service:1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 15
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
