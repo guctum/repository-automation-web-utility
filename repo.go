@@ -24,3 +24,15 @@ func createRepo(name string, token string) {
 	}
 	log.Println("Suceessfully created new repo: ", repo.GetName())
 }
+
+func deleteRepo(name string, token string, owner string) {
+	ctx := context.Background()
+	tokenSource := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
+	oauthClient := oauth2.NewClient(ctx, tokenSource)
+	client := github.NewClient(oauthClient)
+	_, err := client.Repositories.Delete(ctx, owner, name)
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println("Suceessfully deleted repo: ", name)
+}
