@@ -1,6 +1,6 @@
 FROM golang:1.16.0 as builder
 
-LABEL maintainer="Greg Uctum <greg.uctum@dynatrace.com>"
+LABEL maintainer="Greg Uctum"
 
 WORKDIR /app
 

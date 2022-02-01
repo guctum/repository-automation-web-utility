@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: custom-web-utils
-  namespace: onboarding
+  name: github-repo-automation
+  namespace: github
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: custom-web-utils
+      app: github-repo-automation
   template:
     metadata:
       labels:
-        app: custom-web-utils
+        app: github-repo-automation
     spec:
       containers:
-      - name: support-kubernetes-onboarding
-        image: guctum/dt-k8s-onboarding-service:1.0.0
+      - name: github-repo-automation
+        image: guctum/repo-automation:main
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -38,8 +38,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: custom-web-utils
-  namespace: onboarding
+  name: github-repo-automation
+  namespace: github
 spec:
   type: NodePort
   ports:
@@ -47,4 +47,4 @@ spec:
     port: 9090
     targetPort: 8080
   selector:
-    app: custom-web-utils
+    app: github-repo-automation
